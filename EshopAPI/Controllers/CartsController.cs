@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,47 +12,47 @@ namespace EshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class CartsController : ControllerBase
     {
         private readonly EshopAPIContext _context;
 
-        public AccountsController(EshopAPIContext context)
+        public CartsController(EshopAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Accounts
+        // GET: api/Carts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccount()
+        public async Task<ActionResult<IEnumerable<Cart>>> GetCart()
         {
-            return await _context.Accounts.ToListAsync();
+            return await _context.Carts.ToListAsync();
         }
 
-        // GET: api/Accounts/5
+        // GET: api/Carts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Account>> GetAccount(int id)
+        public async Task<ActionResult<Cart>> GetCart(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
+            var cart = await _context.Carts.FindAsync(id);
 
-            if (account == null)
+            if (cart == null)
             {
                 return NotFound();
             }
 
-            return account;
+            return cart;
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/Carts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount(int id, Account account)
+        public async Task<IActionResult> PutCart(int id, Cart cart)
         {
-            if (id != account.Id)
+            if (id != cart.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            _context.Entry(cart).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace EshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!CartExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace EshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Accounts
+        // POST: api/Carts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Account>> PostAccount(Account account)
+        public async Task<ActionResult<Cart>> PostCart(Cart cart)
         {
-            _context.Accounts.Add(account);
+            _context.Carts.Add(cart);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetCart", new { id = cart.Id }, cart);
         }
 
-        // DELETE: api/Accounts/5
+        // DELETE: api/Carts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount(int id)
+        public async Task<IActionResult> DeleteCart(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
+            var cart = await _context.Carts.FindAsync(id);
+            if (cart == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            _context.Carts.Remove(cart);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool AccountExists(int id)
+        private bool CartExists(int id)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            return _context.Carts.Any(e => e.Id == id);
         }
     }
 }

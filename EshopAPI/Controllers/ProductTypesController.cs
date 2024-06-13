@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,47 +12,47 @@ namespace EshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class ProductTypesController : ControllerBase
     {
         private readonly EshopAPIContext _context;
 
-        public AccountsController(EshopAPIContext context)
+        public ProductTypesController(EshopAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Accounts
+        // GET: api/ProductTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccount()
+        public async Task<ActionResult<IEnumerable<ProductType>>> GetProductType()
         {
-            return await _context.Accounts.ToListAsync();
+            return await _context.ProductTypes.ToListAsync();
         }
 
-        // GET: api/Accounts/5
+        // GET: api/ProductTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Account>> GetAccount(int id)
+        public async Task<ActionResult<ProductType>> GetProductType(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
+            var productType = await _context.ProductTypes.FindAsync(id);
 
-            if (account == null)
+            if (productType == null)
             {
                 return NotFound();
             }
 
-            return account;
+            return productType;
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/ProductTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount(int id, Account account)
+        public async Task<IActionResult> PutProductType(int id, ProductType productType)
         {
-            if (id != account.Id)
+            if (id != productType.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            _context.Entry(productType).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace EshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!ProductTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace EshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Accounts
+        // POST: api/ProductTypes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Account>> PostAccount(Account account)
+        public async Task<ActionResult<ProductType>> PostProductType(ProductType productType)
         {
-            _context.Accounts.Add(account);
+            _context.ProductTypes.Add(productType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetProductType", new { id = productType.Id }, productType);
         }
 
-        // DELETE: api/Accounts/5
+        // DELETE: api/ProductTypes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount(int id)
+        public async Task<IActionResult> DeleteProductType(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
+            var productType = await _context.ProductTypes.FindAsync(id);
+            if (productType == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            _context.ProductTypes.Remove(productType);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool AccountExists(int id)
+        private bool ProductTypeExists(int id)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            return _context.ProductTypes.Any(e => e.Id == id);
         }
     }
 }
