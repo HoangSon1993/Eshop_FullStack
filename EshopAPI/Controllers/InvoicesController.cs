@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,47 +12,47 @@ namespace EshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class InvoicesController : ControllerBase
     {
         private readonly EshopAPIContext _context;
 
-        public AccountsController(EshopAPIContext context)
+        public InvoicesController(EshopAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Accounts
+        // GET: api/Invoices
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccount()
+        public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoice()
         {
-            return await _context.Accounts.ToListAsync();
+            return await _context.Invoices.ToListAsync();
         }
 
-        // GET: api/Accounts/5
+        // GET: api/Invoices/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Account>> GetAccount(int id)
+        public async Task<ActionResult<Invoice>> GetInvoice(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
+            var invoice = await _context.Invoices.FindAsync(id);
 
-            if (account == null)
+            if (invoice == null)
             {
                 return NotFound();
             }
 
-            return account;
+            return invoice;
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/Invoices/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount(int id, Account account)
+        public async Task<IActionResult> PutInvoice(int id, Invoice invoice)
         {
-            if (id != account.Id)
+            if (id != invoice.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            _context.Entry(invoice).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace EshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!InvoiceExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace EshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Accounts
+        // POST: api/Invoices
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Account>> PostAccount(Account account)
+        public async Task<ActionResult<Invoice>> PostInvoice(Invoice invoice)
         {
-            _context.Accounts.Add(account);
+            _context.Invoices.Add(invoice);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetInvoice", new { id = invoice.Id }, invoice);
         }
 
-        // DELETE: api/Accounts/5
+        // DELETE: api/Invoices/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount(int id)
+        public async Task<IActionResult> DeleteInvoice(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
+            var invoice = await _context.Invoices.FindAsync(id);
+            if (invoice == null)
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(account);
+            _context.Invoices.Remove(invoice);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool AccountExists(int id)
+        private bool InvoiceExists(int id)
         {
-            return _context.Accounts.Any(e => e.Id == id);
+            return _context.Invoices.Any(e => e.Id == id);
         }
     }
 }
