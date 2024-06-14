@@ -5,7 +5,7 @@ import Footer from '~/components/Footer'
 interface Props {
   children?: React.ReactNode
 }
-export default function RegisterLayout({ children }: Props) {
+const AdminLayout = ({ children }: Props) => {
   return (
     <div>
       <RegisterHeader />
@@ -14,3 +14,5 @@ export default function RegisterLayout({ children }: Props) {
     </div>
   )
 }
+
+export default AdminLayout
