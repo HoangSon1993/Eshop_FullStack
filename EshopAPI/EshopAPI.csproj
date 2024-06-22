@@ -18,6 +18,9 @@
 
   <ItemGroup>
     <Folder Include="Database\" />
+    <Folder Include="Dto\Response\" />
+    <Folder Include="Services\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

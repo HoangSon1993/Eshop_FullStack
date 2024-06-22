@@ -6,6 +6,10 @@ import Account from './pages/admin/Account'
 import DashboardAdmin from '~/pages/admin/Dashboard'
 import RegisterLayout from '~/layouts/RegisterLayout'
 import AdminLayout from '~/layouts/AdminLayout'
+import AccountDetail from '~/pages/admin/Account/AccountDetail.tsx'
+import AccountCreate from '~/pages/admin/Account/AccountCreate.tsx'
+import AccountEdit from '~/pages/admin/Account/AccountEdit.tsx'
+import Product, { ProductCreate, ProductEdit } from '~/pages/admin/Product'
 
 export default function UserRouteElement() {
   const routeElements = useRoutes([
@@ -32,26 +36,70 @@ export default function UserRouteElement() {
     },
 
     //Area : /admin/...
+
     {
       path: '/admin',
-      element: <DashboardAdmin />
-    },
-    // /admin/accounts
-    {
-      path: '/admin/accounts',
-      element: (
-        <AdminLayout>
-          <Account />
-        </AdminLayout>
-      )
-    },
-    {
-      path: '/admin/accounts/:{id}',
-      element: (
-        <AdminLayout>
-          <Account />
-        </AdminLayout>
-      )
+      children: [
+        {
+          path: '', // '/admin'
+          element: <DashboardAdmin></DashboardAdmin>
+        },
+        {
+          path: 'accounts',
+          children: [
+            { path: '', element: <Account /> },
+            {
+              path: 'create', // '/admin/create'
+              element: <AccountCreate />
+            },
+            {
+              path: 'detail/:id', // '/admin/detail/{id}'
+              element: (
+                <AdminLayout>
+                  <AccountDetail />
+                </AdminLayout>
+              )
+            },
+            {
+              path: 'edit/:id', // '/admin/edit/{id}'
+              element: (
+                <AdminLayout>
+                  <AccountEdit />
+                </AdminLayout>
+              )
+            }
+          ]
+        },
+        {
+          path: 'products',
+          children: [
+            {
+              path: '',
+              element: (
+                <AdminLayout>
+                  <Product />
+                </AdminLayout>
+              )
+            },
+            {
+              path: 'create',
+              element: (
+                <AdminLayout>
+                  <ProductCreate />
+                </AdminLayout>
+              )
+            },
+            {
+              path: 'edit/:id',
+              element: (
+                <AdminLayout>
+                  <ProductEdit />
+                </AdminLayout>
+              )
+            }
+          ]
+        }
+      ]
     }
   ])
 
